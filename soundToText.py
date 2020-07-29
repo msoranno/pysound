@@ -51,7 +51,7 @@ def get_large_audio_transcription(path):
             else:
                 text = f"{text.capitalize()}. "
                 print(chunk_filename, ":", text)
-                whole_text += text
+                whole_text += text + "\n"
     # return the text for all chunks detected
     return whole_text
 
@@ -61,5 +61,12 @@ r = sr.Recognizer()
 path = '/home/sp81891/PycharmProjects/pysound/audio'
 files = [f for f in glob.glob(path + "/*.wav", recursive=True)]
 for f in files:
+    print("------------------------------------------------------------------------------")
     print(f)
-    print("\nFull text:", get_large_audio_transcription(f))
+    print("------------------------------------------------------------------------------")
+    result = get_large_audio_transcription(f)
+    print("\nFull text:", result)
+    print("")
+    text_file = open("texto/"+os.path.basename(f)+".txt", "w")
+    text_file.write(result)
+    text_file.close()    
